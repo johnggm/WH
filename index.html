@@ -1,12 +1,817 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Title</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <h1><center>3학년 10반 시험지 공지</center></h1>
-    <p>1,물리</p>
-    <P>2,화작</P>
-  </body>
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>수행평가 확인 시스템</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0f1a;
+      --surface: #141826;
+      --card: #1a1f30;
+      --border: #252d45;
+      --accent: #4f8aff;
+      --accent2: #a259ff;
+      --green: #3dd68c;
+      --yellow: #f5c542;
+      --red: #ff5f5f;
+      --text: #e8eaf2;
+      --muted: #6b7499;
+    }
+
+```
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── 헤더 ── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 1.3rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.class-badge {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ── 메인 레이아웃 ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* ── 필터 바 ── */
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 240px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.search-box:focus { border-color: var(--accent); }
+.search-box::placeholder { color: var(--muted); }
+
+.filter-select {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+.filter-select:focus { border-color: var(--accent); }
+
+/* ── 통계 카드 ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent-color, var(--accent));
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color, var(--accent));
+  line-height: 1;
+}
+
+.stat-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── 수행평가 카드 그리드 ── */
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.eval-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.eval-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(79,138,255,0.15);
+}
+
+.card-subject {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.card-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.card-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.meta-icon { font-size: 0.9rem; }
+
+.status-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* 상태 색상 */
+.status-upcoming { background: rgba(79,138,255,0.15); color: var(--accent); }
+.status-ongoing  { background: rgba(61,214,140,0.15); color: var(--green); }
+.status-done     { background: rgba(107,116,153,0.15); color: var(--muted); }
+.status-urgent   { background: rgba(255,95,95,0.15); color: var(--red); }
+
+/* 과목 색상 */
+.subj-korean   { background: rgba(79,138,255,0.15);  color: var(--accent); }
+.subj-math     { background: rgba(245,197,66,0.15);  color: var(--yellow); }
+.subj-english  { background: rgba(61,214,140,0.15);  color: var(--green); }
+.subj-science  { background: rgba(162,89,255,0.15);  color: var(--accent2); }
+.subj-social   { background: rgba(255,155,79,0.15);  color: #ff9b4f; }
+.subj-life     { background: rgba(255,100,160,0.15); color: #ff64a0; }
+.subj-etc      { background: rgba(107,116,153,0.15); color: var(--muted); }
+
+/* 소분류 배지 */
+.card-subsubject {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin-left: 6px;
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  vertical-align: middle;
+}
+
+/* ── 모달 ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  max-width: 560px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modal-close {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+  border-radius: 8px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+}
+.modal-close:hover { color: var(--text); background: var(--border); }
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.modal-subject { margin-bottom: 0; }
+.modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; }
+
+.modal-section { margin-bottom: 20px; }
+.modal-section-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.modal-section-content { font-size: 0.95rem; line-height: 1.7; }
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-info-item {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.file-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: border-color 0.15s;
+  margin-top: 8px;
+}
+.file-link:hover { border-color: var(--accent); }
+
+/* ── 빈 상태 ── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+}
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+/* 반응형 */
+/* ── 탭 ── */
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  border-radius: 6px 6px 0 0;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn:hover { color: var(--text); }
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 700;
+}
+
+.tab-btn.done-tab.active {
+  color: var(--muted);
+  border-bottom-color: var(--muted);
+}
+
+.tab-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.tab-btn.active .tab-count {
+  background: rgba(79,138,255,0.15);
+  color: var(--accent);
+}
+
+.tab-btn.done-tab.active .tab-count {
+  background: rgba(107,116,153,0.15);
+  color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  header { padding: 0 16px; }
+  .container { padding: 24px 16px; }
+  .modal { padding: 24px; }
+  .modal-grid { grid-template-columns: 1fr; }
+  .tab-btn { padding: 10px 14px; font-size: 0.88rem; }
+}
+```
+
+  </style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+
+<header>
+  <div class="logo">📋 수행평가 확인</div>
+  <div class="header-right">
+    <span class="class-badge">2학년 3반</span>  <!-- ✏️ 학반 수정 -->
+  </div>
+</header>
+
+<!-- ── 메인 ── -->
+
+<div class="container">
+
+  <!-- 탭 -->
+
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tabActive" onclick="switchTab('active')">
+      📋 진행 중인 수행평가 <span class="tab-count" id="tabActiveCount">0</span>
+    </button>
+    <button class="tab-btn done-tab" id="tabDone" onclick="switchTab('done')">
+      ✅ 완료된 수행평가 <span class="tab-count" id="tabDoneCount">0</span>
+    </button>
+  </div>
+
+  <!-- 필터 바 -->
+
+  <div class="filter-bar">
+    <input class="search-box" type="text" id="searchInput" placeholder="🔍 수행평가 검색..."/>
+    <select class="filter-select" id="subjectFilter">
+      <option value="">전체 과목</option>
+      <option value="수학">수학</option>
+      <option value="국어">국어</option>
+      <option value="영어">영어</option>
+      <option value="사회탐구">사회탐구</option>
+      <option value="과학탐구">과학탐구</option>
+      <option value="생활&예체능">생활&예체능</option>
+    </select>
+    <select class="filter-select" id="statusFilter">
+      <option value="">전체 상태</option>
+      <option value="예정">예정</option>
+      <option value="진행중">진행중</option>
+      <option value="긴급">긴급</option>
+    </select>
+  </div>
+
+  <!-- 통계 -->
+
+  <div class="stats-row">
+    <div class="stat-card" style="--accent-color: var(--accent)">
+      <div class="stat-label">전체</div>
+      <div class="stat-value" id="statTotal">0</div>
+      <div class="stat-sub">등록된 수행평가</div>
+    </div>
+    <div class="stat-card" style="--accent-color: var(--red)">
+      <div class="stat-label">긴급</div>
+      <div class="stat-value" id="statUrgent">0</div>
+      <div class="stat-sub">3일 이내 마감</div>
+    </div>
+    <div class="stat-card" style="--accent-color: var(--green)">
+      <div class="stat-label">진행중</div>
+      <div class="stat-value" id="statOngoing">0</div>
+      <div class="stat-sub">현재 진행</div>
+    </div>
+    <div class="stat-card" style="--accent-color: var(--muted)">
+      <div class="stat-label">완료</div>
+      <div class="stat-value" id="statDone">0</div>
+      <div class="stat-sub">제출 완료</div>
+    </div>
+  </div>
+
+  <!-- 카드 그리드 -->
+
+  <div class="section-title" id="sectionTitle">수행평가 목록</div>
+  <div class="cards-grid" id="cardsGrid"></div>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="empty-icon">📭</div>
+    <div id="emptyMsg">검색 결과가 없습니다.</div>
+  </div>
+</div>
+
+<!-- ── 모달 ── -->
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+
+```
+<!-- 헤더: 과목 배지 + 상태 배지 + 닫기 버튼 한 줄 -->
+<div class="modal-header">
+  <div class="modal-header-left">
+    <div class="modal-subject" id="mSubject"></div>
+  </div>
+  <button class="modal-close" id="modalClose">✕ 닫기</button>
+</div>
+
+<!-- 바디 -->
+<div class="modal-body">
+  <div class="modal-title" id="mTitle"></div>
+
+  <div class="modal-grid">
+    <div class="modal-info-item">
+      <div class="modal-section-label">담당 선생님</div>
+      <div id="mTeacher" style="font-weight:600"></div>
+    </div>
+    <div class="modal-info-item">
+      <div class="modal-section-label">마감일</div>
+      <div id="mDeadline" style="font-weight:600"></div>
+    </div>
+    <div class="modal-info-item">
+      <div class="modal-section-label">배점</div>
+      <div id="mScore" style="font-weight:600"></div>
+    </div>
+    <div class="modal-info-item">
+      <div class="modal-section-label">제출 방식</div>
+      <div id="mSubmit" style="font-weight:600"></div>
+    </div>
+  </div>
+
+  <div class="modal-section">
+    <div class="modal-section-label">평가 내용</div>
+    <div class="modal-section-content" id="mDesc"></div>
+  </div>
+
+  <div class="modal-section">
+    <div class="modal-section-label">첨부 파일 / 링크</div>
+    <div id="mFiles"></div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<script>
+  /* =============================================
+     ✏️  수행평가 데이터 입력 방법
+
+     category  : 대분류 → 수학 / 국어 / 영어 / 사회탐구 / 과학탐구 / 생활&예체능
+     subject   : 소분류 → 확률과 통계 / 언어와 매체 / 영어 독해와 작문 등
+     title     : 수행평가 제목
+     teacher   : 담당 선생님
+     startDate : 시작일 (YYYY-MM-DD) ← 없어도 됨
+     deadline  : 마감일 (YYYY-MM-DD) ← 날짜 기준으로 상태 자동 계산
+     score     : 배점 (예: "20점")
+     submitType: 제출 방식
+     desc      : 평가 내용 설명
+     files     : 첨부 파일 [ { name, url } ]
+     {
+      id: 1,
+      category: "국어",
+      subject: "언어와 매체",
+      title: "현대 소설 독후감 쓰기",
+      teacher: "김○○ 선생님",
+      startDate: "2026-03-20",
+      deadline: "2026-04-10",
+      score: "20점",
+      submitType: "온라인 제출 (Google Classroom)",
+      desc: "지정 도서 목록 중 1권을 선택하여 A4 2장 분량의 독후감을 작성합니다. 주제, 인물 분석, 감상을 포함해야 합니다.",
+      files: [
+        { name: "독후감 양식.hwp", url: "#" },
+        { name: "지정 도서 목록.pdf", url: "#" }
+      ]
+    }
+  ============================================= */
+  const evaluations = [
+    {
+      id: 1,
+      category: "국어",
+      subject: "언어와 매체",
+      title: "예시",
+      teacher: "김○○ 선생님",
+      startDate: "2026-03-20",
+      deadline: "2026-04-10",
+      score: "20점",
+      submitType: "온라인 제출 (Google Classroom)",
+      desc: "지정 도서 목록 중 1권을 선택하여 A4 2장 분량의 독후감을 작성합니다. 주제, 인물 분석, 감상을 포함해야 합니다.",
+      files: [
+        { name: "독후감 양식.hwp", url: "#" },
+        { name: "지정 도서 목록.pdf", url: "#" }
+      ]
+    },
+
+    // ✏️ 여기에 계속 추가하세요 ↑
+  ];
+
+  /* ── 날짜 기반 상태 자동 계산 ── */
+  function getStatus(ev) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deadline = new Date(ev.deadline);
+    deadline.setHours(0, 0, 0, 0);
+    const start = ev.startDate ? new Date(ev.startDate) : null;
+    if (start) start.setHours(0, 0, 0, 0);
+    const diffDays = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+    if (diffDays < 0) return "완료";
+    if (diffDays <= 3) return "긴급";
+    if (start && today >= start) return "진행중";
+    return "예정";
+  }
+
+  /* ── 대분류 → CSS 클래스 매핑 ── */
+  const subjectClass = {
+    "국어":     "subj-korean",
+    "수학":     "subj-math",
+    "영어":     "subj-english",
+    "과학탐구": "subj-science",
+    "사회탐구": "subj-social",
+    "생활&예체능": "subj-life",
+  };
+
+  /* ── 소분류 목록 (데이터 입력 참고용) ── */
+  const subjectMap = {
+    "수학":     ["확률과 통계", "미적분", "경제 수학", "심화 수학 I"],
+    "국어":     ["언어와 매체", "화법과 작문", "심화 국어"],
+    "영어":     ["영어 독해와 작문", "심화 영어 독해 I"],
+    "사회탐구": ["동아시아사", "한국지리", "정치와 법", "경제", "생활과 윤리", "고전과 윤리", "사회문제 탐구"],
+    "과학탐구": ["물리학 I", "화학 I", "생명과학 I", "지구과학 I"],
+    "생활&예체능": ["스포츠 생활", "음악 연주", "미술 감상과 비평", "환경", "한문", "공학 일반", "일본문화", "중국문화", "정보과학"],
+  };
+
+  const statusMap = {
+    "예정":   { cls: "status-upcoming", label: "📅 예정" },
+    "진행중": { cls: "status-ongoing",  label: "🟢 진행중" },
+    "긴급":   { cls: "status-urgent",   label: "🔴 긴급" },
+    "완료":   { cls: "status-done",     label: "✅ 완료" },
+  };
+
+  /* ── 카드 렌더링 ── */
+  function renderCards(data) {
+    const grid = document.getElementById("cardsGrid");
+    const empty = document.getElementById("emptyState");
+    grid.innerHTML = "";
+
+    if (!data.length) {
+      empty.style.display = "block";
+      return;
+    }
+    empty.style.display = "none";
+
+    data.forEach(ev => {
+      ev._status = getStatus(ev);
+      const sc = subjectClass[ev.category] || "subj-etc";
+      const st = statusMap[ev._status] || statusMap["예정"];
+      const subLabel = ev.subject ? `<span class="card-subsubject">${ev.subject}</span>` : "";
+
+      const card = document.createElement("div");
+      card.className = "eval-card";
+      card.innerHTML = `
+        <span class="card-subject ${sc}">${ev.category || ev.subject}</span>${subLabel}
+        <span class="status-badge ${st.cls}">${st.label}</span>
+        <div class="card-title">${ev.title}</div>
+        <div class="card-desc">${ev.desc.length > 80 ? ev.desc.slice(0,80)+"…" : ev.desc}</div>
+        <div class="card-meta">
+          <span class="meta-item"><span class="meta-icon">👤</span>${ev.teacher}</span>
+          <span class="meta-item"><span class="meta-icon">📅</span>${ev.deadline}</span>
+          <span class="meta-item"><span class="meta-icon">⭐</span>${ev.score}</span>
+        </div>
+      `;
+      card.addEventListener("click", () => openModal(ev));
+      grid.appendChild(card);
+    });
+  }
+
+  /* ── 탭 상태 ── */
+  let currentTab = 'active'; // 'active' | 'done'
+
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tabActive').classList.toggle('active', tab === 'active');
+    document.getElementById('tabDone').classList.toggle('active', tab === 'done');
+
+    // 완료 탭에서는 상태 필터 숨김 (의미 없으므로)
+    document.getElementById('statusFilter').style.display = tab === 'done' ? 'none' : '';
+
+    refresh();
+  }
+
+  /* ── 통계 업데이트 ── */
+  function updateStats() {
+    const all = evaluations;
+    document.getElementById("statTotal").textContent   = all.filter(e => getStatus(e) !== "완료").length;
+    document.getElementById("statUrgent").textContent  = all.filter(e => getStatus(e) === "긴급").length;
+    document.getElementById("statOngoing").textContent = all.filter(e => getStatus(e) === "진행중").length;
+    document.getElementById("statDone").textContent    = all.filter(e => getStatus(e) === "완료").length;
+
+    // 탭 카운트
+    document.getElementById("tabActiveCount").textContent = all.filter(e => getStatus(e) !== "완료").length;
+    document.getElementById("tabDoneCount").textContent   = all.filter(e => getStatus(e) === "완료").length;
+  }
+
+  /* ── 필터 ── */
+  function getFiltered() {
+    const q       = document.getElementById("searchInput").value.toLowerCase();
+    const subject = document.getElementById("subjectFilter").value;
+    const status  = document.getElementById("statusFilter").value;
+
+    return evaluations.filter(ev => {
+      const s = getStatus(ev);
+      const inTab   = currentTab === 'done' ? s === "완료" : s !== "완료";
+      const matchQ  = !q || ev.title.toLowerCase().includes(q) || ev.teacher.toLowerCase().includes(q) || ev.desc.toLowerCase().includes(q) || (ev.subject||"").toLowerCase().includes(q);
+      const matchS  = !subject || ev.category === subject;
+      const matchT  = !status  || s === status;
+      return inTab && matchQ && matchS && matchT;
+    });
+  }
+
+  function refresh() {
+    const filtered = getFiltered();
+    // 섹션 타이틀
+    document.getElementById("sectionTitle").textContent =
+      currentTab === 'done' ? '완료된 수행평가' : '진행 중인 수행평가';
+    // 빈 상태 메시지
+    document.getElementById("emptyMsg").textContent =
+      currentTab === 'done' ? '완료된 수행평가가 없습니다.' : '검색 결과가 없습니다.';
+    renderCards(filtered);
+    updateStats();
+  }
+
+  document.getElementById("searchInput").addEventListener("input", refresh);
+  document.getElementById("subjectFilter").addEventListener("change", refresh);
+  document.getElementById("statusFilter").addEventListener("change", refresh);
+
+  /* ── 모달 ── */
+  function openModal(ev) {
+    const sc = subjectClass[ev.category] || "subj-etc";
+    const st = statusMap[getStatus(ev)] || statusMap["예정"];
+    const subLabel = ev.subject ? `<span class="card-subsubject">${ev.subject}</span>` : "";
+
+    document.getElementById("mSubject").innerHTML  = `<span class="card-subject ${sc}">${ev.category || ev.subject}</span>${subLabel} <span class="status-badge ${st.cls}">${st.label}</span>`;
+    document.getElementById("mTitle").textContent   = ev.title;
+    document.getElementById("mTeacher").textContent = ev.teacher;
+    document.getElementById("mDeadline").textContent= ev.deadline;
+    document.getElementById("mScore").textContent   = ev.score;
+    document.getElementById("mSubmit").textContent  = ev.submitType;
+    document.getElementById("mDesc").textContent    = ev.desc;
+
+    const filesDiv = document.getElementById("mFiles");
+    if (ev.files && ev.files.length) {
+      filesDiv.innerHTML = ev.files.map(f =>
+        `<a class="file-link" href="${f.url}" target="_blank">📎 ${f.name}</a>`
+      ).join("");
+    } else {
+      filesDiv.innerHTML = `<span style="color:var(--muted);font-size:0.88rem">첨부 파일 없음</span>`;
+    }
+
+    document.getElementById("modalOverlay").classList.add("open");
+  }
+
+  document.getElementById("modalClose").addEventListener("click", () =>
+    document.getElementById("modalOverlay").classList.remove("open")
+  );
+  document.getElementById("modalOverlay").addEventListener("click", e => {
+    if (e.target === document.getElementById("modalOverlay"))
+      document.getElementById("modalOverlay").classList.remove("open");
+  });
+
+  /* ── 초기 렌더 ── */
+  refresh();
+</script>
+
+</body>
 </html>
