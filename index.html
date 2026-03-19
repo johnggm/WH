@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>수행평가</title>
+  <title>수행평가 확인 시스템</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -31,7 +31,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── 헤더 ── */
 header {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -69,14 +68,12 @@ header {
   color: var(--muted);
 }
 
-/* ── 메인 레이아웃 ── */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 24px;
 }
 
-/* ── 필터 바 ── */
 .filter-bar {
   display: flex;
   gap: 12px;
@@ -115,7 +112,6 @@ header {
 }
 .filter-select:focus { border-color: var(--accent); }
 
-/* ── 통계 카드 ── */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -160,7 +156,6 @@ header {
   margin-top: 4px;
 }
 
-/* ── 수행평가 카드 그리드 ── */
 .section-title {
   font-size: 1rem;
   font-weight: 700;
@@ -243,13 +238,11 @@ header {
   border-radius: 20px;
 }
 
-/* 상태 색상 */
 .status-upcoming { background: rgba(79,138,255,0.15); color: var(--accent); }
 .status-ongoing  { background: rgba(61,214,140,0.15); color: var(--green); }
 .status-done     { background: rgba(107,116,153,0.15); color: var(--muted); }
 .status-urgent   { background: rgba(255,95,95,0.15); color: var(--red); }
 
-/* 과목 색상 */
 .subj-korean   { background: rgba(79,138,255,0.15);  color: var(--accent); }
 .subj-math     { background: rgba(245,197,66,0.15);  color: var(--yellow); }
 .subj-english  { background: rgba(61,214,140,0.15);  color: var(--green); }
@@ -258,7 +251,6 @@ header {
 .subj-life     { background: rgba(255,100,160,0.15); color: #ff64a0; }
 .subj-etc      { background: rgba(107,116,153,0.15); color: var(--muted); }
 
-/* 소분류 배지 */
 .card-subsubject {
   display: inline-block;
   font-size: 0.72rem;
@@ -271,7 +263,6 @@ header {
   vertical-align: middle;
 }
 
-/* ── 모달 ── */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -374,7 +365,6 @@ header {
 }
 .file-link:hover { border-color: var(--accent); }
 
-/* ── 빈 상태 ── */
 .empty-state {
   text-align: center;
   padding: 80px 20px;
@@ -382,8 +372,6 @@ header {
 }
 .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 
-/* 반응형 */
-/* ── 탭 ── */
 .tab-bar {
   display: flex;
   gap: 8px;
@@ -441,6 +429,115 @@ header {
   color: var(--muted);
 }
 
+.notice-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+}
+.notice-overlay.open { display: flex; }
+
+.notice-popup {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 28px 24px;
+  max-width: 420px;
+  width: 90%;
+  position: relative;
+}
+
+.notice-icon {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.notice-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.notice-body {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.8;
+  white-space: pre-line;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.notice-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.notice-hide-today {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: auto;
+  transition: color 0.15s;
+}
+.notice-hide-today:hover { color: var(--text); }
+
+.notice-confirm {
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.notice-confirm:hover { opacity: 0.85; }
+
+.desc-image {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-top: 8px;
+  display: block;
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+}
+.desc-image:hover { opacity: 0.9; }
+
+.img-zoom-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 400;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.img-zoom-overlay.open { display: flex; }
+.img-zoom-overlay img {
+  max-width: 94vw;
+  max-height: 90vh;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
 @media (max-width: 600px) {
   header { padding: 0 16px; }
   .container { padding: 24px 16px; }
@@ -448,26 +545,40 @@ header {
   .modal-grid { grid-template-columns: 1fr; }
   .tab-btn { padding: 10px 14px; font-size: 0.88rem; }
 }
-```
 
   </style>
 </head>
 <body>
 
-<!-- ── 헤더 ── -->
+
+<div class="img-zoom-overlay" id="imgZoomOverlay">
+  <img id="imgZoomTarget" src="" alt="평가 내용"/>
+</div>
+
+
+<div class="notice-overlay" id="noticeOverlay">
+  <div class="notice-popup">
+    <div class="notice-icon">📢</div>
+    <div class="notice-title" id="noticeTitle"></div>
+    <div class="notice-body" id="noticeBody"></div>
+    <div class="notice-actions">
+      <button class="notice-hide-today" id="noticeHideToday">오늘 하루 안 보기</button>
+      <button class="notice-confirm" id="noticeConfirm">확인</button>
+    </div>
+  </div>
+</div>
+
 
 <header>
   <div class="logo">📋 수행평가 확인</div>
   <div class="header-right">
-    <span class="class-badge">3학년 10반</span>  <!-- ✏️ 학반 수정 -->
+    <span class="class-badge">3학년 10반</span>
   </div>
 </header>
 
-<!-- ── 메인 ── -->
 
 <div class="container">
 
-  <!-- 탭 -->
 
   <div class="tab-bar">
     <button class="tab-btn active" id="tabActive" onclick="switchTab('active')">
@@ -478,7 +589,6 @@ header {
     </button>
   </div>
 
-  <!-- 필터 바 -->
 
   <div class="filter-bar">
     <input class="search-box" type="text" id="searchInput" placeholder="🔍 수행평가 검색..."/>
@@ -499,7 +609,6 @@ header {
     </select>
   </div>
 
-  <!-- 통계 -->
 
   <div class="stats-row">
     <div class="stat-card" style="--accent-color: var(--accent)">
@@ -510,7 +619,7 @@ header {
     <div class="stat-card" style="--accent-color: var(--red)">
       <div class="stat-label">긴급</div>
       <div class="stat-value" id="statUrgent">0</div>
-      <div class="stat-sub">3일 이내 마감</div>
+      <div class="stat-sub">3일 남음</div>
     </div>
     <div class="stat-card" style="--accent-color: var(--green)">
       <div class="stat-label">진행중</div>
@@ -524,7 +633,6 @@ header {
     </div>
   </div>
 
-  <!-- 카드 그리드 -->
 
   <div class="section-title" id="sectionTitle">수행평가 목록</div>
   <div class="cards-grid" id="cardsGrid"></div>
@@ -534,13 +642,11 @@ header {
   </div>
 </div>
 
-<!-- ── 모달 ── -->
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
 
-```
-<!-- 헤더: 과목 배지 + 상태 배지 + 닫기 버튼 한 줄 -->
+.
 <div class="modal-header">
   <div class="modal-header-left">
     <div class="modal-subject" id="mSubject"></div>
@@ -548,15 +654,10 @@ header {
   <button class="modal-close" id="modalClose">✕ 닫기</button>
 </div>
 
-<!-- 바디 -->
 <div class="modal-body">
   <div class="modal-title" id="mTitle"></div>
 
   <div class="modal-grid">
-    <div class="modal-info-item">
-      <div class="modal-section-label">담당 선생님</div>
-      <div id="mTeacher" style="font-weight:600"></div>
-    </div>
     <div class="modal-info-item">
       <div class="modal-section-label">마감일</div>
       <div id="mDeadline" style="font-weight:600"></div>
@@ -566,7 +667,7 @@ header {
       <div id="mScore" style="font-weight:600"></div>
     </div>
     <div class="modal-info-item">
-      <div class="modal-section-label">제출 방식</div>
+      <div class="modal-section-label">추가 사항</div>
       <div id="mSubmit" style="font-weight:600"></div>
     </div>
   </div>
@@ -574,84 +675,99 @@ header {
   <div class="modal-section">
     <div class="modal-section-label">평가 내용</div>
     <div class="modal-section-content" id="mDesc"></div>
+    <div id="mImage"></div>
   </div>
 
-  <div class="modal-section">
+  <div class="modal-section" id="mFilesSection">
     <div class="modal-section-label">첨부 파일 / 링크</div>
     <div id="mFiles"></div>
   </div>
 </div>
-```
 
   </div>
 </div>
 
 <script>
-  /* =============================================
-     ✏️  수행평가 데이터 입력 방법
+  const notice = {
+    active: true,
+    title: "📌 수행평가 일정 안내",
+    body: "3월 수행평가 일정이 업데이트되었습니다.\n확인 후 기간 내 제출 바랍니다.\n\n문의사항은 담당 선생님께 문의해 주세요."
+  };
 
-     category  : 대분류 → 수학 / 국어 / 영어 / 사회탐구 / 과학탐구 / 생활&예체능
-     subject   : 소분류 → 확률과 통계 / 언어와 매체 / 영어 독해와 작문 등
-     title     : 수행평가 제목
-     teacher   : 담당 선생님
-     startDate : 시작일 (YYYY-MM-DD) ← 없어도 됨
-     deadline  : 마감일 (YYYY-MM-DD) ← 날짜 기준으로 상태 자동 계산
-     score     : 배점 (예: "20점")
-     submitType: 제출 방식
-     desc      : 평가 내용 설명
-     files     : 첨부 파일 [ { name, url } ]
-     {
-      id: 1,
-      category: "국어",
-      subject: "언어와 매체",
-      title: "현대 소설 독후감 쓰기",
-      teacher: "김○○ 선생님",
-      startDate: "2026-03-20",
-      deadline: "2026-04-10",
-      score: "20점",
-      submitType: "온라인 제출 (Google Classroom)",
-      desc: "지정 도서 목록 중 1권을 선택하여 A4 2장 분량의 독후감을 작성합니다. 주제, 인물 분석, 감상을 포함해야 합니다.",
-      files: [
-        { name: "독후감 양식.hwp", url: "#" },
-        { name: "지정 도서 목록.pdf", url: "#" }
-      ]
-    }
-  ============================================= */
+  (function initNotice() {
+    if (!notice.active) return;
+
+    const hideUntil = localStorage.getItem("noticeHideUntil");
+    const today = new Date().toISOString().slice(0, 10);
+    if (hideUntil === today) return;
+
+    document.getElementById("noticeTitle").textContent = notice.title;
+    document.getElementById("noticeBody").textContent  = notice.body;
+    document.getElementById("noticeOverlay").classList.add("open");
+  })();
+
+  document.getElementById("noticeConfirm").addEventListener("click", () => {
+    document.getElementById("noticeOverlay").classList.remove("open");
+  });
+
+  document.getElementById("noticeHideToday").addEventListener("click", () => {
+    const today = new Date().toISOString().slice(0, 10);
+    localStorage.setItem("noticeHideUntil", today);
+    document.getElementById("noticeOverlay").classList.remove("open");
+  });
+
   const evaluations = [
     {
       id: 1,
-      category: "국어",
-      subject: "언어와 매체",
-      title: "예시",
-      teacher: "김○○ 선생님",
-      startDate: "2026-03-20",
-      deadline: "2026-04-10",
+      category: "영어",
+      subject: "영어 독해와 작문",
+      title: "관심 이슈 프레젠테이션 공지",
+      teacher: "○○ 선생님",
+      startDate: "2026-03-23",
+      deadline: "2026-03-26",
       score: "20점",
-      submitType: "온라인 제출 (Google Classroom)",
-      desc: "지정 도서 목록 중 1권을 선택하여 A4 2장 분량의 독후감을 작성합니다. 주제, 인물 분석, 감상을 포함해야 합니다.",
-      files: [
-        { name: "예시 사진", url: "https://share.icloud.com/photos/018ZTOUy8J57lNZO5n7LyVFZw" },
+      submitType: "1차시, 2차시, 3차시",
+      desc: "",
+      image: [
+      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5747.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5748.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5749.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_0056.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5751.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5752.jpeg"
       ]
     },{
       id: 2,
-      category: "수학",
-      subject: "확률과 통계",
-      title: "예시",
-      teacher: "김○○ 선생님",
-      startDate: "2026-03-20",
-      deadline: "2026-04-10",
+      category: "과학탐구",
+      subject: "사회문제 탐구",
+      title: "사회탐구 1차 수행",
+      teacher: "○○ 선생님",
+      startDate: "2026-04-01",
+      deadline: "2026-04-01",
       score: "20점",
-      submitType: "온라인 제출 (Google Classroom)",
-      desc: "지정 도서 목록 중 1권을 선택하여 A4 2장 분량의 독후감을 작성합니다. 주제, 인물 분석, 감상을 포함해야 합니다.",
-      files: [
-        { name: "예시 사진", url: "https://share.icloud.com/photos/018ZTOUy8J57lNZO5n7LyVFZw" },
+      submitType: "",
+      desc: "",
+      image: [
+      "https://raw.githubusercontent.com/johnggm/Img/602403e33d9287bba65e253e962c41730875e2bc/IMG_0097.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/6edf54cf73ded758cf439859a90c0797e9f89c35/IMG_0096.jpeg"
+      ]
+    },{
+      id: 3,
+      category: "과학탐구",
+      subject: "정치와 법",
+      title: "기본권 제한 사례 논술",
+      startDate: "2026-04-02",
+      deadline: "2026-04-03",
+      score: "20점",
+      submitType: "",
+      desc:"",
+      image: [
+      "https://raw.githubusercontent.com/johnggm/Img/761666db91417f05677d8fe0ef5dc7da65a59848/IMG_0109.jpeg",
+      "https://raw.githubusercontent.com/johnggm/Img/761666db91417f05677d8fe0ef5dc7da65a59848/IMG_0110.jpeg"
       ]
     }
-
-    // ✏️ 여기에 계속 추가하세요 ↑
   ];
 
-  /* ── 날짜 기반 상태 자동 계산 ── */
   function getStatus(ev) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -666,7 +782,6 @@ header {
     return "예정";
   }
 
-  /* ── 대분류 → CSS 클래스 매핑 ── */
   const subjectClass = {
     "국어":     "subj-korean",
     "수학":     "subj-math",
@@ -676,7 +791,6 @@ header {
     "생활&예체능": "subj-life",
   };
 
-  /* ── 소분류 목록 (데이터 입력 참고용) ── */
   const subjectMap = {
     "수학":     ["확률과 통계", "미적분", "경제 수학", "심화 수학 I"],
     "국어":     ["언어와 매체", "화법과 작문", "심화 국어"],
@@ -719,7 +833,6 @@ header {
         <div class="card-title">${ev.title}</div>
         <div class="card-desc">${ev.desc.length > 80 ? ev.desc.slice(0,80)+"…" : ev.desc}</div>
         <div class="card-meta">
-          <span class="meta-item"><span class="meta-icon">👤</span>${ev.teacher}</span>
           <span class="meta-item"><span class="meta-icon">📅</span>${ev.deadline}</span>
           <span class="meta-item"><span class="meta-icon">⭐</span>${ev.score}</span>
         </div>
@@ -729,21 +842,18 @@ header {
     });
   }
 
-  /* ── 탭 상태 ── */
-  let currentTab = 'active'; // 'active' | 'done'
+  let currentTab = 'active'; 
 
   function switchTab(tab) {
     currentTab = tab;
     document.getElementById('tabActive').classList.toggle('active', tab === 'active');
     document.getElementById('tabDone').classList.toggle('active', tab === 'done');
 
-    // 완료 탭에서는 상태 필터 숨김 (의미 없으므로)
     document.getElementById('statusFilter').style.display = tab === 'done' ? 'none' : '';
 
     refresh();
   }
 
-  /* ── 통계 업데이트 ── */
   function updateStats() {
     const all = evaluations;
     document.getElementById("statTotal").textContent   = all.filter(e => getStatus(e) !== "완료").length;
@@ -751,12 +861,10 @@ header {
     document.getElementById("statOngoing").textContent = all.filter(e => getStatus(e) === "진행중").length;
     document.getElementById("statDone").textContent    = all.filter(e => getStatus(e) === "완료").length;
 
-    // 탭 카운트
     document.getElementById("tabActiveCount").textContent = all.filter(e => getStatus(e) !== "완료").length;
     document.getElementById("tabDoneCount").textContent   = all.filter(e => getStatus(e) === "완료").length;
   }
 
-  /* ── 필터 ── */
   function getFiltered() {
     const q       = document.getElementById("searchInput").value.toLowerCase();
     const subject = document.getElementById("subjectFilter").value;
@@ -774,10 +882,8 @@ header {
 
   function refresh() {
     const filtered = getFiltered();
-    // 섹션 타이틀
     document.getElementById("sectionTitle").textContent =
       currentTab === 'done' ? '완료된 수행평가' : '진행 중인 수행평가';
-    // 빈 상태 메시지
     document.getElementById("emptyMsg").textContent =
       currentTab === 'done' ? '완료된 수행평가가 없습니다.' : '검색 결과가 없습니다.';
     renderCards(filtered);
@@ -788,7 +894,6 @@ header {
   document.getElementById("subjectFilter").addEventListener("change", refresh);
   document.getElementById("statusFilter").addEventListener("change", refresh);
 
-  /* ── 모달 ── */
   function openModal(ev) {
     const sc = subjectClass[ev.category] || "subj-etc";
     const st = statusMap[getStatus(ev)] || statusMap["예정"];
@@ -796,23 +901,48 @@ header {
 
     document.getElementById("mSubject").innerHTML  = `<span class="card-subject ${sc}">${ev.category || ev.subject}</span>${subLabel} <span class="status-badge ${st.cls}">${st.label}</span>`;
     document.getElementById("mTitle").textContent   = ev.title;
-    document.getElementById("mTeacher").textContent = ev.teacher;
     document.getElementById("mDeadline").textContent= ev.deadline;
     document.getElementById("mScore").textContent   = ev.score;
     document.getElementById("mSubmit").textContent  = ev.submitType;
-    document.getElementById("mDesc").textContent    = ev.desc;
+
+    const descEl  = document.getElementById("mDesc");
+    const imageEl = document.getElementById("mImage");
+
+    descEl.innerHTML  = ev.desc  ? ev.desc  : "";
+    descEl.style.display = ev.desc ? "" : "none";
+
+    if (ev.image) {
+      const imgs = Array.isArray(ev.image) ? ev.image : [ev.image];
+      imageEl.innerHTML = imgs.map(src =>
+        `<img class="desc-image" src="${src}" alt="평가 내용 이미지"/>`
+      ).join("");
+      imageEl.querySelectorAll("img").forEach(img => {
+        img.addEventListener("click", () => {
+          document.getElementById("imgZoomTarget").src = img.src;
+          document.getElementById("imgZoomOverlay").classList.add("open");
+        });
+      });
+    } else {
+      imageEl.innerHTML = "";
+    }
 
     const filesDiv = document.getElementById("mFiles");
+    const filesSection = document.getElementById("mFilesSection");
     if (ev.files && ev.files.length) {
+      filesSection.style.display = "";
       filesDiv.innerHTML = ev.files.map(f =>
         `<a class="file-link" href="${f.url}" target="_blank">📎 ${f.name}</a>`
       ).join("");
     } else {
-      filesDiv.innerHTML = `<span style="color:var(--muted);font-size:0.88rem">첨부 파일 없음</span>`;
+      filesSection.style.display = "none";
     }
 
     document.getElementById("modalOverlay").classList.add("open");
   }
+
+  document.getElementById("imgZoomOverlay").addEventListener("click", () => {
+    document.getElementById("imgZoomOverlay").classList.remove("open");
+  });
 
   document.getElementById("modalClose").addEventListener("click", () =>
     document.getElementById("modalOverlay").classList.remove("open")
@@ -822,7 +952,6 @@ header {
       document.getElementById("modalOverlay").classList.remove("open");
   });
 
-  /* ── 초기 렌더 ── */
   refresh();
 </script>
 
