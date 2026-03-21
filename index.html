@@ -171,7 +171,7 @@
     <div class="stat-card" style="--accent-color:var(--red)">
       <div class="stat-label">긴급</div>
       <div class="stat-value" id="statUrgent">0</div>
-      <div class="stat-sub">3일 남음</div>
+      <div class="stat-sub">시작 3일 이내</div>
     </div>
     <div class="stat-card" style="--accent-color:var(--green)">
       <div class="stat-label">진행중</div>
@@ -265,7 +265,7 @@
       startDate: "2026-03-23",
       deadline: "2026-03-26",
       score: "20점",
-      submitType: "1차시(3/23), 2차시(3/25), 3차시(3/2)",
+      submitType: "1차시(3/23), 2차시(3/25), 3차시(3/26)",
       desc: "",
       image: [
         "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5747.jpeg",
@@ -321,15 +321,30 @@
     return "마감 " + fmtDate(ev.deadline);
   }
 
+  /* ── 상태 자동 계산 (시작일 기준) ──
+     완료  : 마감일이 지남
+     긴급  : 시작일까지 3일 이내 (아직 시작 전)
+     진행중 : 시작일이 지났고 마감일 전
+     예정  : 시작일이 3일 넘게 남음
+  ── */
   function getStatus(ev) {
     const today = new Date(); today.setHours(0,0,0,0);
     const deadline = new Date(ev.deadline); deadline.setHours(0,0,0,0);
     const start = ev.startDate ? new Date(ev.startDate) : null;
     if (start) start.setHours(0,0,0,0);
-    const diff = Math.ceil((deadline - today) / 86400000);
-    if (diff < 0) return "완료";
-    if (diff <= 3) return "긴급";
-    if (start && today >= start) return "진행중";
+
+    if (deadline < today) return "완료";
+
+    if (start) {
+      const diffStart = Math.ceil((start - today) / 86400000);
+      if (diffStart <= 3 && diffStart >= 0) return "긴급";  // 시작일 3일 이내
+      if (today >= start) return "진행중";                   // 시작일 지남
+    } else {
+      // startDate 없으면 마감일 기준으로 폴백
+      const diffDeadline = Math.ceil((deadline - today) / 86400000);
+      if (diffDeadline <= 3) return "긴급";
+    }
+
     return "예정";
   }
 
