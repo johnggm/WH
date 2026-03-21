@@ -10,559 +10,109 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #0d0f1a;
-      --surface: #141826;
-      --card: #1a1f30;
-      --border: #252d45;
-      --accent: #4f8aff;
-      --accent2: #a259ff;
-      --green: #3dd68c;
-      --yellow: #f5c542;
-      --red: #ff5f5f;
-      --text: #e8eaf2;
-      --muted: #6b7499;
+      --bg:#0d0f1a;--surface:#141826;--card:#1a1f30;--border:#252d45;
+      --accent:#4f8aff;--accent2:#a259ff;--green:#3dd68c;
+      --yellow:#f5c542;--red:#ff5f5f;--text:#e8eaf2;--muted:#6b7499;
     }
-
-```
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Noto Sans KR', sans-serif;
-  min-height: 100vh;
-}
-
-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  font-family: 'Black Han Sans', sans-serif;
-  font-size: 1.3rem;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.class-badge {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 24px;
-}
-
-.filter-bar {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-  align-items: center;
-}
-
-.search-box {
-  flex: 1;
-  min-width: 240px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 16px;
-  color: var(--text);
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border 0.2s;
-}
-.search-box:focus { border-color: var(--accent); }
-.search-box::placeholder { color: var(--muted); }
-
-.filter-select {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 16px;
-  color: var(--text);
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-  cursor: pointer;
-  transition: border 0.2s;
-}
-.filter-select:focus { border-color: var(--accent); }
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  margin-bottom: 36px;
-}
-
-.stat-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 24px;
-  position: relative;
-  overflow: hidden;
-}
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent-color, var(--accent));
-}
-
-.stat-label {
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin-bottom: 8px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-color, var(--accent));
-  line-height: 1;
-}
-
-.stat-sub {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-.section-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.eval-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  cursor: pointer;
-  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-  position: relative;
-  overflow: hidden;
-}
-.eval-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-  box-shadow: 0 8px 32px rgba(79,138,255,0.15);
-}
-
-.card-subject {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 6px;
-  margin-bottom: 12px;
-}
-
-.card-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.card-desc {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.card-meta {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.meta-icon { font-size: 0.9rem; }
-
-.status-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-
-.status-upcoming { background: rgba(79,138,255,0.15); color: var(--accent); }
-.status-ongoing  { background: rgba(61,214,140,0.15); color: var(--green); }
-.status-done     { background: rgba(107,116,153,0.15); color: var(--muted); }
-.status-urgent   { background: rgba(255,95,95,0.15); color: var(--red); }
-
-.subj-korean   { background: rgba(79,138,255,0.15);  color: var(--accent); }
-.subj-math     { background: rgba(245,197,66,0.15);  color: var(--yellow); }
-.subj-english  { background: rgba(61,214,140,0.15);  color: var(--green); }
-.subj-science  { background: rgba(162,89,255,0.15);  color: var(--accent2); }
-.subj-social   { background: rgba(255,155,79,0.15);  color: #ff9b4f; }
-.subj-life     { background: rgba(255,100,160,0.15); color: #ff64a0; }
-.subj-etc      { background: rgba(107,116,153,0.15); color: var(--muted); }
-
-.card-subsubject {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 5px;
-  margin-left: 6px;
-  background: rgba(255,255,255,0.06);
-  color: var(--muted);
-  vertical-align: middle;
-}
-
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(4px);
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-}
-.modal-overlay.open { display: flex; }
-
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  max-width: 560px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.modal-header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.modal-close {
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 1rem;
-  cursor: pointer;
-  line-height: 1;
-  transition: color 0.15s, background 0.15s;
-  border-radius: 8px;
-  padding: 6px 10px;
-  flex-shrink: 0;
-}
-.modal-close:hover { color: var(--text); background: var(--border); }
-
-.modal-body {
-  padding: 24px;
-  overflow-y: auto;
-}
-
-.modal-subject { margin-bottom: 0; }
-.modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; }
-
-.modal-section { margin-bottom: 20px; }
-.modal-section-label {
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.modal-section-content { font-size: 0.95rem; line-height: 1.7; }
-
-.modal-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.modal-info-item {
-  background: var(--card);
-  border-radius: 10px;
-  padding: 14px 16px;
-}
-
-.file-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 16px;
-  text-decoration: none;
-  color: var(--text);
-  font-size: 0.9rem;
-  transition: border-color 0.15s;
-  margin-top: 8px;
-}
-.file-link:hover { border-color: var(--accent); }
-
-.empty-state {
-  text-align: center;
-  padding: 80px 20px;
-  color: var(--muted);
-}
-.empty-icon { font-size: 3rem; margin-bottom: 12px; }
-
-.tab-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 28px;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 0;
-}
-
-.tab-btn {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  border-radius: 6px 6px 0 0;
-  transition: color 0.2s, border-color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.tab-btn:hover { color: var(--text); }
-
-.tab-btn.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-  font-weight: 700;
-}
-
-.tab-btn.done-tab.active {
-  color: var(--muted);
-  border-bottom-color: var(--muted);
-}
-
-.tab-count {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 20px;
-  background: var(--card);
-}
-
-.tab-btn.active .tab-count {
-  background: rgba(79,138,255,0.15);
-  color: var(--accent);
-}
-
-.tab-btn.done-tab.active .tab-count {
-  background: rgba(107,116,153,0.15);
-  color: var(--muted);
-}
-
-.notice-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(4px);
-  z-index: 300;
-  align-items: center;
-  justify-content: center;
-}
-.notice-overlay.open { display: flex; }
-
-.notice-popup {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 32px 28px 24px;
-  max-width: 420px;
-  width: 90%;
-  position: relative;
-}
-
-.notice-icon {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-.notice-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: var(--text);
-}
-
-.notice-body {
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.8;
-  white-space: pre-line;
-  margin-bottom: 24px;
-  padding: 16px;
-  background: var(--card);
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-.notice-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.notice-hide-today {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.82rem;
-  cursor: pointer;
-  text-decoration: underline;
-  margin-right: auto;
-  transition: color 0.15s;
-}
-.notice-hide-today:hover { color: var(--text); }
-
-.notice-confirm {
-  background: var(--accent);
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 10px 24px;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.notice-confirm:hover { opacity: 0.85; }
-
-.desc-image {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  margin-top: 8px;
-  display: block;
-  cursor: zoom-in;
-  transition: opacity 0.15s;
-}
-.desc-image:hover { opacity: 0.9; }
-
-.img-zoom-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  z-index: 400;
-  align-items: center;
-  justify-content: center;
-  cursor: zoom-out;
-}
-.img-zoom-overlay.open { display: flex; }
-.img-zoom-overlay img {
-  max-width: 94vw;
-  max-height: 90vh;
-  border-radius: 10px;
-  object-fit: contain;
-}
-
-@media (max-width: 600px) {
-  header { padding: 0 16px; }
-  .container { padding: 24px 16px; }
-  .modal { padding: 24px; }
-  .modal-grid { grid-template-columns: 1fr; }
-  .tab-btn { padding: 10px 14px; font-size: 0.88rem; }
-}
-a {
-    text-decoration: none;
-    color: #244a37;
-    font-size: 15px;
-}
-
-
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;}
+    header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+    .logo{font-family:'Black Han Sans',sans-serif;font-size:1.3rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;}
+    .header-right{display:flex;align-items:center;gap:16px;}
+    .class-badge{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 16px;font-size:0.85rem;color:var(--muted);}
+    .container{max-width:1200px;margin:0 auto;padding:40px 24px;}
+    .filter-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;align-items:center;}
+    .search-box{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;outline:none;transition:border 0.2s;}
+    .search-box:focus{border-color:var(--accent);}
+    .search-box::placeholder{color:var(--muted);}
+    .filter-select{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;outline:none;cursor:pointer;transition:border 0.2s;}
+    .filter-select:focus{border-color:var(--accent);}
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:36px;}
+    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;position:relative;overflow:hidden;}
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-color,var(--accent));}
+    .stat-label{font-size:0.78rem;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px;text-transform:uppercase;}
+    .stat-value{font-size:2rem;font-weight:700;color:var(--accent-color,var(--accent));line-height:1;}
+    .stat-sub{font-size:0.8rem;color:var(--muted);margin-top:4px;}
+    .section-title{font-size:1rem;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+    .eval-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;cursor:pointer;transition:transform 0.18s,border-color 0.18s,box-shadow 0.18s;position:relative;overflow:hidden;}
+    .eval-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 32px rgba(79,138,255,0.15);}
+    .card-subject{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-bottom:12px;}
+    .card-title{font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.4;}
+    .card-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+    .card-meta{display:flex;gap:16px;flex-wrap:wrap;}
+    .meta-item{display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--muted);}
+    .meta-icon{font-size:0.9rem;}
+    .status-badge{position:absolute;top:20px;right:20px;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:20px;}
+    .status-upcoming{background:rgba(79,138,255,0.15);color:var(--accent);}
+    .status-ongoing{background:rgba(61,214,140,0.15);color:var(--green);}
+    .status-done{background:rgba(107,116,153,0.15);color:var(--muted);}
+    .status-urgent{background:rgba(255,95,95,0.15);color:var(--red);}
+    .subj-korean{background:rgba(79,138,255,0.15);color:var(--accent);}
+    .subj-math{background:rgba(245,197,66,0.15);color:var(--yellow);}
+    .subj-english{background:rgba(61,214,140,0.15);color:var(--green);}
+    .subj-science{background:rgba(162,89,255,0.15);color:var(--accent2);}
+    .subj-social{background:rgba(255,155,79,0.15);color:#ff9b4f;}
+    .subj-life{background:rgba(255,100,160,0.15);color:#ff64a0;}
+    .subj-etc{background:rgba(107,116,153,0.15);color:var(--muted);}
+    .card-subsubject{display:inline-block;font-size:0.72rem;font-weight:600;padding:2px 8px;border-radius:5px;margin-left:6px;background:rgba(255,255,255,0.06);color:var(--muted);vertical-align:middle;}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;max-width:560px;width:90%;max-height:80vh;overflow-y:auto;position:relative;display:flex;flex-direction:column;}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
+    .modal-header-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .modal-close{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:1rem;cursor:pointer;line-height:1;transition:color 0.15s,background 0.15s;border-radius:8px;padding:6px 10px;flex-shrink:0;}
+    .modal-close:hover{color:var(--text);background:var(--border);}
+    .modal-body{padding:24px;overflow-y:auto;}
+    .modal-subject{margin-bottom:0;}
+    .modal-title{font-size:1.4rem;font-weight:700;margin-bottom:16px;}
+    .modal-section{margin-bottom:20px;}
+    .modal-section-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;}
+    .modal-section-content{font-size:0.95rem;line-height:1.7;}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+    .modal-info-item{background:var(--card);border-radius:10px;padding:14px 16px;}
+    .file-link{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--text);font-size:0.9rem;transition:border-color 0.15s;margin-top:8px;}
+    .file-link:hover{border-color:var(--accent);}
+    .empty-state{text-align:center;padding:80px 20px;color:var(--muted);}
+    .empty-icon{font-size:3rem;margin-bottom:12px;}
+    .tab-bar{display:flex;gap:8px;margin-bottom:28px;border-bottom:2px solid var(--border);padding-bottom:0;}
+    .tab-btn{background:none;border:none;color:var(--muted);font-family:'Noto Sans KR',sans-serif;font-size:0.95rem;font-weight:500;padding:10px 20px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;border-radius:6px 6px 0 0;transition:color 0.2s,border-color 0.2s;display:flex;align-items:center;gap:8px;}
+    .tab-btn:hover{color:var(--text);}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+    .tab-btn.done-tab.active{color:var(--muted);border-bottom-color:var(--muted);}
+    .tab-count{font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--card);}
+    .tab-btn.active .tab-count{background:rgba(79,138,255,0.15);color:var(--accent);}
+    .tab-btn.done-tab.active .tab-count{background:rgba(107,116,153,0.15);color:var(--muted);}
+    .notice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:300;align-items:center;justify-content:center;}
+    .notice-overlay.open{display:flex;}
+    .notice-popup{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px 24px;max-width:420px;width:90%;position:relative;}
+    .notice-title{font-size:1.1rem;font-weight:700;margin-bottom:14px;color:var(--text);}
+    .notice-body{font-size:0.9rem;color:var(--muted);line-height:1.8;white-space:pre-line;margin-bottom:24px;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--border);}
+    .notice-actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;}
+    .notice-hide-today{background:none;border:none;color:var(--muted);font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;text-decoration:underline;margin-right:auto;transition:color 0.15s;}
+    .notice-hide-today:hover{color:var(--text);}
+    .notice-confirm{background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;font-weight:700;padding:10px 24px;cursor:pointer;transition:opacity 0.15s;}
+    .notice-confirm:hover{opacity:0.85;}
+    .desc-image{width:100%;border-radius:10px;border:1px solid var(--border);margin-top:8px;display:block;cursor:zoom-in;transition:opacity 0.15s;}
+    .desc-image:hover{opacity:0.9;}
+    .img-zoom-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:center;justify-content:center;cursor:zoom-out;}
+    .img-zoom-overlay.open{display:flex;}
+    .img-zoom-overlay img{max-width:94vw;max-height:90vh;border-radius:10px;object-fit:contain;}
+    @media(max-width:600px){
+      header{padding:0 16px;}
+      .container{padding:24px 16px;}
+      .modal{padding:24px;}
+      .modal-grid{grid-template-columns:1fr;}
+      .tab-btn{padding:10px 14px;font-size:0.88rem;}
+    }
+    a{text-decoration:none;color:#244a37;font-size:15px;}
   </style>
 </head>
 <body>
 
-
 <div class="img-zoom-overlay" id="imgZoomOverlay">
   <img id="imgZoomTarget" src="" alt="평가 내용"/>
 </div>
-
 
 <div class="notice-overlay" id="noticeOverlay">
   <div class="notice-popup">
@@ -575,7 +125,6 @@ a {
   </div>
 </div>
 
-
 <header>
   <div class="logo">📋 수행평가 확인</div>
   <div class="header-right">
@@ -583,9 +132,7 @@ a {
   </div>
 </header>
 
-
 <div class="container">
-
 
   <div class="tab-bar">
     <button class="tab-btn active" id="tabActive" onclick="switchTab('active')">
@@ -595,7 +142,6 @@ a {
       ✅ 완료된 수행평가 <span class="tab-count" id="tabDoneCount">0</span>
     </button>
   </div>
-
 
   <div class="filter-bar">
     <input class="search-box" type="text" id="searchInput" placeholder="🔍 수행평가 검색..."/>
@@ -616,30 +162,28 @@ a {
     </select>
   </div>
 
-
   <div class="stats-row">
-    <div class="stat-card" style="--accent-color: var(--accent)">
+    <div class="stat-card" style="--accent-color:var(--accent)">
       <div class="stat-label">전체</div>
       <div class="stat-value" id="statTotal">0</div>
       <div class="stat-sub">등록된 수행평가</div>
     </div>
-    <div class="stat-card" style="--accent-color: var(--red)">
+    <div class="stat-card" style="--accent-color:var(--red)">
       <div class="stat-label">긴급</div>
       <div class="stat-value" id="statUrgent">0</div>
       <div class="stat-sub">3일 남음</div>
     </div>
-    <div class="stat-card" style="--accent-color: var(--green)">
+    <div class="stat-card" style="--accent-color:var(--green)">
       <div class="stat-label">진행중</div>
       <div class="stat-value" id="statOngoing">0</div>
       <div class="stat-sub">현재 진행</div>
     </div>
-    <div class="stat-card" style="--accent-color: var(--muted)">
+    <div class="stat-card" style="--accent-color:var(--muted)">
       <div class="stat-label">완료</div>
       <div class="stat-value" id="statDone">0</div>
       <div class="stat-sub">제출 완료</div>
     </div>
   </div>
-
 
   <div class="section-title" id="sectionTitle">수행평가 목록</div>
   <div class="cards-grid" id="cardsGrid"></div>
@@ -649,47 +193,40 @@ a {
   </div>
 </div>
 
-
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-.
-<div class="modal-header">
-  <div class="modal-header-left">
-    <div class="modal-subject" id="mSubject"></div>
-  </div>
-  <button class="modal-close" id="modalClose">✕ 닫기</button>
-</div>
-
-<div class="modal-body">
-  <div class="modal-title" id="mTitle"></div>
-
-  <div class="modal-grid">
-    <div class="modal-info-item">
-      <div class="modal-section-label">마감일</div>
-      <div id="mDeadline" style="font-weight:600"></div>
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-subject" id="mSubject"></div>
+      </div>
+      <button class="modal-close" id="modalClose">✕ 닫기</button>
     </div>
-    <div class="modal-info-item">
-      <div class="modal-section-label">배점</div>
-      <div id="mScore" style="font-weight:600"></div>
+    <div class="modal-body">
+      <div class="modal-title" id="mTitle"></div>
+      <div class="modal-grid">
+        <div class="modal-info-item">
+          <div class="modal-section-label">마감일</div>
+          <div id="mDeadline" style="font-weight:600"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-section-label">배점</div>
+          <div id="mScore" style="font-weight:600"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-section-label">추가 사항</div>
+          <div id="mSubmit" style="font-weight:600"></div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">평가 내용</div>
+        <div class="modal-section-content" id="mDesc"></div>
+        <div id="mImage"></div>
+      </div>
+      <div class="modal-section" id="mFilesSection">
+        <div class="modal-section-label">첨부 파일 / 링크</div>
+        <div id="mFiles"></div>
+      </div>
     </div>
-    <div class="modal-info-item">
-      <div class="modal-section-label">추가 사항</div>
-      <div id="mSubmit" style="font-weight:600"></div>
-    </div>
-  </div>
-
-  <div class="modal-section">
-    <div class="modal-section-label">평가 내용</div>
-    <div class="modal-section-content" id="mDesc"></div>
-    <div id="mImage"></div>
-  </div>
-
-  <div class="modal-section" id="mFilesSection">
-    <div class="modal-section-label">첨부 파일 / 링크</div>
-    <div id="mFiles"></div>
-  </div>
-</div>
-
   </div>
 </div>
 
@@ -702,23 +239,19 @@ a {
 
   (function initNotice() {
     if (!notice.active) return;
-
     const hideUntil = localStorage.getItem("noticeHideUntil");
     const today = new Date().toISOString().slice(0, 10);
     if (hideUntil === today) return;
-
     document.getElementById("noticeTitle").textContent = notice.title;
     document.getElementById("noticeBody").textContent  = notice.body;
     document.getElementById("noticeOverlay").classList.add("open");
   })();
 
-  document.getElementById("noticeConfirm").addEventListener("click", () => {
-    document.getElementById("noticeOverlay").classList.remove("open");
-  });
-
+  document.getElementById("noticeConfirm").addEventListener("click", () =>
+    document.getElementById("noticeOverlay").classList.remove("open")
+  );
   document.getElementById("noticeHideToday").addEventListener("click", () => {
-    const today = new Date().toISOString().slice(0, 10);
-    localStorage.setItem("noticeHideUntil", today);
+    localStorage.setItem("noticeHideUntil", new Date().toISOString().slice(0, 10));
     document.getElementById("noticeOverlay").classList.remove("open");
   });
 
@@ -732,15 +265,15 @@ a {
       startDate: "2026-03-23",
       deadline: "2026-03-26",
       score: "20점",
-      submitType: "1차시, 2차시, 3차시",
+      submitType: "1차시(3/23), 2차시(3/25), 3차시(3/2)",
       desc: "",
       image: [
-      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5747.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5748.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5749.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_0056.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5751.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5752.jpeg"
+        "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5747.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5748.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5749.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_0056.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5751.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5752.jpeg"
       ]
     },{
       id: 2,
@@ -754,8 +287,8 @@ a {
       submitType: "",
       desc: "",
       image: [
-      "https://raw.githubusercontent.com/johnggm/Img/602403e33d9287bba65e253e962c41730875e2bc/IMG_0097.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/6edf54cf73ded758cf439859a90c0797e9f89c35/IMG_0096.jpeg"
+        "https://raw.githubusercontent.com/johnggm/Img/602403e33d9287bba65e253e962c41730875e2bc/IMG_0097.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/6edf54cf73ded758cf439859a90c0797e9f89c35/IMG_0096.jpeg"
       ]
     },{
       id: 3,
@@ -765,64 +298,67 @@ a {
       startDate: "2026-04-02",
       deadline: "2026-04-03",
       score: "20점",
-      submitType: "",
-      desc:"",
+      submitType: "1반(4/2), 3-4-5반(4/3)",
+      desc: "",
       image: [
-      "https://raw.githubusercontent.com/johnggm/Img/761666db91417f05677d8fe0ef5dc7da65a59848/IMG_0109.jpeg",
-      "https://raw.githubusercontent.com/johnggm/Img/761666db91417f05677d8fe0ef5dc7da65a59848/IMG_0110.jpeg"
+        "https://raw.githubusercontent.com/johnggm/Img/761666db91417f05677d8fe0ef5dc7da65a59848/IMG_0109.jpeg",
+        "https://raw.githubusercontent.com/johnggm/Img/761666db91417f05677d8fe0ef5dc7da65a59848/IMG_0110.jpeg"
       ]
     }
   ];
 
+  /* ── 날짜 M/D 포맷 ── */
+  function fmtDate(dateStr) {
+    const d = new Date(dateStr);
+    return (d.getMonth() + 1) + "/" + d.getDate();
+  }
+
+  /* ── 카드용 날짜 범위 ── */
+  function dateRange(ev) {
+    if (ev.startDate && ev.startDate !== ev.deadline) {
+      return fmtDate(ev.startDate) + " ~ " + fmtDate(ev.deadline);
+    }
+    return "마감 " + fmtDate(ev.deadline);
+  }
+
   function getStatus(ev) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const deadline = new Date(ev.deadline);
-    deadline.setHours(0, 0, 0, 0);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const deadline = new Date(ev.deadline); deadline.setHours(0,0,0,0);
     const start = ev.startDate ? new Date(ev.startDate) : null;
-    if (start) start.setHours(0, 0, 0, 0);
-    const diffDays = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
-    if (diffDays < 0) return "완료";
-    if (diffDays <= 3) return "긴급";
+    if (start) start.setHours(0,0,0,0);
+    const diff = Math.ceil((deadline - today) / 86400000);
+    if (diff < 0) return "완료";
+    if (diff <= 3) return "긴급";
     if (start && today >= start) return "진행중";
     return "예정";
   }
 
   const subjectClass = {
-    "국어":     "subj-korean",
-    "수학":     "subj-math",
-    "영어":     "subj-english",
-    "과학탐구": "subj-science",
-    "사회탐구": "subj-social",
-    "생활&예체능": "subj-life",
+    "국어":"subj-korean","수학":"subj-math","영어":"subj-english",
+    "과학탐구":"subj-science","사회탐구":"subj-social","생활&예체능":"subj-life",
   };
 
   const subjectMap = {
-    "수학":     ["확률과 통계", "미적분", "경제 수학", "심화 수학 I"],
-    "국어":     ["언어와 매체", "화법과 작문", "심화 국어"],
-    "영어":     ["영어 독해와 작문", "심화 영어 독해 I"],
-    "사회탐구": ["동아시아사", "한국지리", "정치와 법", "경제", "생활과 윤리", "고전과 윤리", "사회문제 탐구"],
-    "과학탐구": ["물리학 II", "화학 II", "생명과학 II", "지구과학 II"],
-    "생활&예체능": ["스포츠 생활", "음악 연주", "미술 감상과 비평", "환경", "한문", "공학 일반", "일본문화", "중국문화", "정보과학"],
+    "수학":["확률과 통계","미적분","경제 수학","심화 수학 I"],
+    "국어":["언어와 매체","화법과 작문","심화 국어"],
+    "영어":["영어 독해와 작문","심화 영어 독해 I"],
+    "사회탐구":["동아시아사","한국지리","정치와 법","경제","생활과 윤리","고전과 윤리","사회문제 탐구"],
+    "과학탐구":["물리학 II","화학 II","생명과학 II","지구과학 II"],
+    "생활&예체능":["스포츠 생활","음악 연주","미술 감상과 비평","환경","한문","공학 일반","일본문화","중국문화","정보과학"],
   };
 
   const statusMap = {
-    "예정":   { cls: "status-upcoming", label: "📅 예정" },
-    "진행중": { cls: "status-ongoing",  label: "🟢 진행중" },
-    "긴급":   { cls: "status-urgent",   label: "🔴 긴급" },
-    "완료":   { cls: "status-done",     label: "✅ 완료" },
+    "예정":  {cls:"status-upcoming",label:"📅 예정"},
+    "진행중":{cls:"status-ongoing", label:"🟢 진행중"},
+    "긴급":  {cls:"status-urgent",  label:"🔴 긴급"},
+    "완료":  {cls:"status-done",    label:"✅ 완료"},
   };
 
-  /* ── 카드 렌더링 ── */
   function renderCards(data) {
     const grid = document.getElementById("cardsGrid");
     const empty = document.getElementById("emptyState");
     grid.innerHTML = "";
-
-    if (!data.length) {
-      empty.style.display = "block";
-      return;
-    }
+    if (!data.length) { empty.style.display="block"; return; }
     empty.style.display = "none";
 
     data.forEach(ev => {
@@ -834,64 +370,57 @@ a {
       const card = document.createElement("div");
       card.className = "eval-card";
       card.innerHTML = `
-        <span class="card-subject ${sc}">${ev.category || ev.subject}</span>${subLabel}
+        <span class="card-subject ${sc}">${ev.category||ev.subject}</span>${subLabel}
         <span class="status-badge ${st.cls}">${st.label}</span>
         <div class="card-title">${ev.title}</div>
-        <div class="card-desc">${ev.desc.length > 80 ? ev.desc.slice(0,80)+"…" : ev.desc}</div>
+        <div class="card-desc">${(ev.desc||"").length>80?ev.desc.slice(0,80)+"…":(ev.desc||"")}</div>
         <div class="card-meta">
-          <span class="meta-item"><span class="meta-icon">📅</span>${ev.deadline}</span>
+          <span class="meta-item"><span class="meta-icon">📅</span>${dateRange(ev)}</span>
           <span class="meta-item"><span class="meta-icon">⭐</span>${ev.score}</span>
-        </div>
-      `;
+        </div>`;
       card.addEventListener("click", () => openModal(ev));
       grid.appendChild(card);
     });
   }
 
-  let currentTab = 'active'; 
+  let currentTab = 'active';
 
   function switchTab(tab) {
     currentTab = tab;
-    document.getElementById('tabActive').classList.toggle('active', tab === 'active');
-    document.getElementById('tabDone').classList.toggle('active', tab === 'done');
-
-    document.getElementById('statusFilter').style.display = tab === 'done' ? 'none' : '';
-
+    document.getElementById('tabActive').classList.toggle('active', tab==='active');
+    document.getElementById('tabDone').classList.toggle('active', tab==='done');
+    document.getElementById('statusFilter').style.display = tab==='done' ? 'none' : '';
     refresh();
   }
 
   function updateStats() {
     const all = evaluations;
-    document.getElementById("statTotal").textContent   = all.filter(e => getStatus(e) !== "완료").length;
-    document.getElementById("statUrgent").textContent  = all.filter(e => getStatus(e) === "긴급").length;
-    document.getElementById("statOngoing").textContent = all.filter(e => getStatus(e) === "진행중").length;
-    document.getElementById("statDone").textContent    = all.filter(e => getStatus(e) === "완료").length;
-
-    document.getElementById("tabActiveCount").textContent = all.filter(e => getStatus(e) !== "완료").length;
-    document.getElementById("tabDoneCount").textContent   = all.filter(e => getStatus(e) === "완료").length;
+    document.getElementById("statTotal").textContent    = all.filter(e=>getStatus(e)!=="완료").length;
+    document.getElementById("statUrgent").textContent   = all.filter(e=>getStatus(e)==="긴급").length;
+    document.getElementById("statOngoing").textContent  = all.filter(e=>getStatus(e)==="진행중").length;
+    document.getElementById("statDone").textContent     = all.filter(e=>getStatus(e)==="완료").length;
+    document.getElementById("tabActiveCount").textContent = all.filter(e=>getStatus(e)!=="완료").length;
+    document.getElementById("tabDoneCount").textContent   = all.filter(e=>getStatus(e)==="완료").length;
   }
 
   function getFiltered() {
-    const q       = document.getElementById("searchInput").value.toLowerCase();
+    const q = document.getElementById("searchInput").value.toLowerCase();
     const subject = document.getElementById("subjectFilter").value;
     const status  = document.getElementById("statusFilter").value;
-
     return evaluations.filter(ev => {
       const s = getStatus(ev);
-      const inTab   = currentTab === 'done' ? s === "완료" : s !== "완료";
-      const matchQ  = !q || ev.title.toLowerCase().includes(q) || ev.teacher.toLowerCase().includes(q) || ev.desc.toLowerCase().includes(q) || (ev.subject||"").toLowerCase().includes(q);
-      const matchS  = !subject || ev.category === subject;
-      const matchT  = !status  || s === status;
+      const inTab  = currentTab==='done' ? s==="완료" : s!=="완료";
+      const matchQ = !q || ev.title.toLowerCase().includes(q) || (ev.teacher||"").toLowerCase().includes(q) || (ev.desc||"").toLowerCase().includes(q) || (ev.subject||"").toLowerCase().includes(q);
+      const matchS = !subject || ev.category===subject;
+      const matchT = !status  || s===status;
       return inTab && matchQ && matchS && matchT;
     });
   }
 
   function refresh() {
     const filtered = getFiltered();
-    document.getElementById("sectionTitle").textContent =
-      currentTab === 'done' ? '완료된 수행평가' : '진행 중인 수행평가';
-    document.getElementById("emptyMsg").textContent =
-      currentTab === 'done' ? '완료된 수행평가가 없습니다.' : '검색 결과가 없습니다.';
+    document.getElementById("sectionTitle").textContent = currentTab==='done' ? '완료된 수행평가' : '진행 중인 수행평가';
+    document.getElementById("emptyMsg").textContent     = currentTab==='done' ? '완료된 수행평가가 없습니다.' : '검색 결과가 없습니다.';
     renderCards(filtered);
     updateStats();
   }
@@ -905,16 +434,15 @@ a {
     const st = statusMap[getStatus(ev)] || statusMap["예정"];
     const subLabel = ev.subject ? `<span class="card-subsubject">${ev.subject}</span>` : "";
 
-    document.getElementById("mSubject").innerHTML  = `<span class="card-subject ${sc}">${ev.category || ev.subject}</span>${subLabel} <span class="status-badge ${st.cls}">${st.label}</span>`;
-    document.getElementById("mTitle").textContent   = ev.title;
-    document.getElementById("mDeadline").textContent= ev.deadline;
-    document.getElementById("mScore").textContent   = ev.score;
-    document.getElementById("mSubmit").textContent  = ev.submitType;
+    document.getElementById("mSubject").innerHTML    = `<span class="card-subject ${sc}">${ev.category||ev.subject}</span>${subLabel} <span class="status-badge ${st.cls}">${st.label}</span>`;
+    document.getElementById("mTitle").textContent    = ev.title;
+    document.getElementById("mDeadline").textContent = ev.deadline;
+    document.getElementById("mScore").textContent    = ev.score;
+    document.getElementById("mSubmit").textContent   = ev.submitType;
 
     const descEl  = document.getElementById("mDesc");
     const imageEl = document.getElementById("mImage");
-
-    descEl.innerHTML  = ev.desc  ? ev.desc  : "";
+    descEl.innerHTML     = ev.desc ? ev.desc : "";
     descEl.style.display = ev.desc ? "" : "none";
 
     if (ev.image) {
@@ -946,10 +474,9 @@ a {
     document.getElementById("modalOverlay").classList.add("open");
   }
 
-  document.getElementById("imgZoomOverlay").addEventListener("click", () => {
-    document.getElementById("imgZoomOverlay").classList.remove("open");
-  });
-
+  document.getElementById("imgZoomOverlay").addEventListener("click", () =>
+    document.getElementById("imgZoomOverlay").classList.remove("open")
+  );
   document.getElementById("modalClose").addEventListener("click", () =>
     document.getElementById("modalOverlay").classList.remove("open")
   );
@@ -960,8 +487,10 @@ a {
 
   refresh();
 </script>
+
 <div>
-  <center><button class="kge" style="height: 40px;, width: 20px;"><strong><a href="https://open.kakao.com/o/s61e8jmi">문의사항</a></strong></button></center>
+  <center><button class="kge" style="height:40px;width:60px;"><strong><a href="https://open.kakao.com/o/s61e8jmi">문의사항</a></strong></button></center>
 </div>
+
 </body>
 </html>
