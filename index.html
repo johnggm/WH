@@ -80,32 +80,104 @@
     .tab-btn:hover{color:var(--text);}
     .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
     .tab-btn.done-tab.active{color:var(--muted);border-bottom-color:var(--muted);}
+    .tab-btn.kge-tab.active{color:var(--yellow);border-bottom-color:var(--yellow);}
     .tab-count{font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--card);}
     .tab-btn.active .tab-count{background:rgba(79,138,255,0.15);color:var(--accent);}
     .tab-btn.done-tab.active .tab-count{background:rgba(107,116,153,0.15);color:var(--muted);}
-    .notice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:300;align-items:center;justify-content:center;}
-    .notice-overlay.open{display:flex;}
-    .notice-popup{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px 24px;max-width:420px;width:90%;position:relative;}
-    .notice-title{font-size:1.1rem;font-weight:700;margin-bottom:14px;color:var(--text);}
-    .notice-body{font-size:0.9rem;color:var(--muted);line-height:1.8;white-space:pre-line;margin-bottom:24px;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--border);}
-    .notice-actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;}
-    .notice-hide-today{background:none;border:none;color:var(--muted);font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;text-decoration:underline;margin-right:auto;transition:color 0.15s;}
-    .notice-hide-today:hover{color:var(--text);}
-    .notice-confirm{background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;font-weight:700;padding:10px 24px;cursor:pointer;transition:opacity 0.15s;}
-    .notice-confirm:hover{opacity:0.85;}
-    .desc-image{width:100%;border-radius:10px;border:1px solid var(--border);margin-top:8px;display:block;cursor:zoom-in;transition:opacity 0.15s;}
-    .desc-image:hover{opacity:0.9;}
-    .img-zoom-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:center;justify-content:center;cursor:zoom-out;}
-    .img-zoom-overlay.open{display:flex;}
-    .img-zoom-overlay img{max-width:94vw;max-height:90vh;border-radius:10px;object-fit:contain;}
-    @media(max-width:600px){
-      header{padding:0 16px;}
-      .container{padding:24px 16px;}
-      .modal{padding:24px;}
-      .modal-grid{grid-template-columns:1fr;}
-      .tab-btn{padding:10px 14px;font-size:0.88rem;}
-    }
-    a{text-decoration:none;color:#244a37;font-size:15px;}
+
+/* ── 시간표 섹션 ── */
+/* ✏️ 여기 안에 시간표 코드 넣으면 됩니다 */
+#timetableSection {
+  display: none;
+  min-height: 400px;
+}
+
+.notice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:300;align-items:center;justify-content:center;}
+.notice-overlay.open{display:flex;}
+.notice-popup{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px 24px;max-width:420px;width:90%;position:relative;}
+.notice-title{font-size:1.1rem;font-weight:700;margin-bottom:14px;color:var(--text);}
+.notice-body{font-size:0.9rem;color:var(--muted);line-height:1.8;white-space:pre-line;margin-bottom:24px;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--border);}
+.notice-actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;}
+.notice-hide-today{background:none;border:none;color:var(--muted);font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;text-decoration:underline;margin-right:auto;transition:color 0.15s;}
+.notice-hide-today:hover{color:var(--text);}
+.notice-confirm{background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;font-weight:700;padding:10px 24px;cursor:pointer;transition:opacity 0.15s;}
+.notice-confirm:hover{opacity:0.85;}
+.desc-image{width:100%;border-radius:10px;border:1px solid var(--border);margin-top:8px;display:block;cursor:zoom-in;transition:opacity 0.15s;}
+.desc-image:hover{opacity:0.9;}
+.img-zoom-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:center;justify-content:center;cursor:zoom-out;}
+.img-zoom-overlay.open{display:flex;}
+.img-zoom-overlay img{max-width:94vw;max-height:90vh;border-radius:10px;object-fit:contain;}
+@media(max-width:600px){
+  header{padding:0 16px;}
+  .container{padding:24px 16px;}
+  .modal{padding:24px;}
+  .modal-grid{grid-template-columns:1fr;}
+  .tab-btn{padding:10px 14px;font-size:0.88rem;}
+}
+a{text-decoration:none;color:#244a37;font-size:15px;}
+
+.dashboard-timetable {
+        width: 100%;
+        background-color: #1a1c23; /* 대시보드 배경색 */
+        color: #e2e8f0;
+        font-family: 'Pretendard', -apple-system, sans-serif;
+        border-collapse: separate;
+        border-spacing: 8px; /* 칸 사이 간격 (카드 느낌) */
+      }
+    
+      /* 헤더 스타일 (파란색 상단 바) */
+      .timetable-title {
+        background-color: #4c6ef5 !important;
+        color: white;
+        font-weight: 600;
+        padding: 15px !important;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+        font-size: 1.1rem;
+      }
+    
+      /* 공통 셀 스타일 */
+      .dashboard-timetable th, 
+      .dashboard-timetable td {
+        background-color: #24262d; /* 카드 배경색 */
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #2d303a;
+      }
+    
+      /* 요일/교시 헤더 */
+      .header-cell {
+        background-color: #2d303a !important;
+        color: #94a3b8;
+        font-size: 0.9rem;
+      }
+    
+      /* 점심 시간 강조 */
+      .lunch-row td {
+        background-color: #fff9db !important;
+        color: #856404 !important;
+        font-weight: bold;
+        font-size: 0.95rem;
+      }
+    
+      /* 과목별 배지(Badge) 스타일 */
+      .subject-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 0.85rem;
+        min-width: 30px;
+      }
+      .tag-a { background-color: #fa5252; color: white; } /* 빨강 */
+      .tag-b { background-color: #4dabf7; color: white; } /* 파랑 */
+      .tag-c { background-color: #40c057; color: white; } /* 초록 */
+      .tag-d { background-color: #be4bdb; color: white; } /* 보라 */
+    
+      /* 빈 칸 처리 */
+      .empty-cell { color: #4a4d5a; }
+
   </style>
 </head>
 <body>
@@ -141,56 +213,125 @@
     <button class="tab-btn done-tab" id="tabDone" onclick="switchTab('done')">
       ✅ 완료된 수행평가 <span class="tab-count" id="tabDoneCount">0</span>
     </button>
+    <button class="tab-btn kge-tab" id="tabkge" onclick="switchTab('kge')">
+      🗓 시간표
+    </button>
   </div>
 
-  <div class="filter-bar">
-    <input class="search-box" type="text" id="searchInput" placeholder="🔍 수행평가 검색..."/>
-    <select class="filter-select" id="subjectFilter">
-      <option value="">전체 과목</option>
-      <option value="수학">수학</option>
-      <option value="국어">국어</option>
-      <option value="영어">영어</option>
-      <option value="사회탐구">사회탐구</option>
-      <option value="과학탐구">과학탐구</option>
-      <option value="생활&예체능">생활&예체능</option>
-    </select>
-    <select class="filter-select" id="statusFilter">
-      <option value="">전체 상태</option>
-      <option value="예정">예정</option>
-      <option value="진행중">진행중</option>
-      <option value="긴급">긴급</option>
-    </select>
+  <!-- 수행평가 탭 콘텐츠 -->
+
+  <div id="evalSection">
+    <div class="filter-bar">
+      <input class="search-box" type="text" id="searchInput" placeholder="🔍 수행평가 검색..."/>
+      <select class="filter-select" id="subjectFilter">
+        <option value="">전체 과목</option>
+        <option value="수학">수학</option>
+        <option value="국어">국어</option>
+        <option value="영어">영어</option>
+        <option value="사회탐구">사회탐구</option>
+        <option value="과학탐구">과학탐구</option>
+        <option value="생활&예체능">생활&예체능</option>
+      </select>
+      <select class="filter-select" id="statusFilter">
+        <option value="">전체 상태</option>
+        <option value="예정">예정</option>
+        <option value="진행중">진행중</option>
+        <option value="긴급">긴급</option>
+      </select>
+    </div>
+
+<div class="stats-row">
+  <div class="stat-card" style="--accent-color:var(--accent)">
+    <div class="stat-label">전체</div>
+    <div class="stat-value" id="statTotal">0</div>
+    <div class="stat-sub">등록된 수행평가</div>
+  </div>
+  <div class="stat-card" style="--accent-color:var(--red)">
+    <div class="stat-label">긴급</div>
+    <div class="stat-value" id="statUrgent">0</div>
+    <div class="stat-sub">시작 3일 이내</div>
+  </div>
+  <div class="stat-card" style="--accent-color:var(--green)">
+    <div class="stat-label">진행중</div>
+    <div class="stat-value" id="statOngoing">0</div>
+    <div class="stat-sub">현재 진행</div>
+  </div>
+  <div class="stat-card" style="--accent-color:var(--muted)">
+    <div class="stat-label">완료</div>
+    <div class="stat-value" id="statDone">0</div>
+    <div class="stat-sub">제출 완료</div>
+  </div>
+</div>
+
+<div class="section-title" id="sectionTitle">수행평가 목록</div>
+<div class="cards-grid" id="cardsGrid"></div>
+<div class="empty-state" id="emptyState" style="display:none">
+  <div class="empty-icon">📭</div>
+  <div id="emptyMsg">검색 결과가 없습니다.</div>
+</div>
+
   </div>
 
-  <div class="stats-row">
-    <div class="stat-card" style="--accent-color:var(--accent)">
-      <div class="stat-label">전체</div>
-      <div class="stat-value" id="statTotal">0</div>
-      <div class="stat-sub">등록된 수행평가</div>
-    </div>
-    <div class="stat-card" style="--accent-color:var(--red)">
-      <div class="stat-label">긴급</div>
-      <div class="stat-value" id="statUrgent">0</div>
-      <div class="stat-sub">3일 남음</div>
-    </div>
-    <div class="stat-card" style="--accent-color:var(--green)">
-      <div class="stat-label">진행중</div>
-      <div class="stat-value" id="statOngoing">0</div>
-      <div class="stat-sub">현재 진행</div>
-    </div>
-    <div class="stat-card" style="--accent-color:var(--muted)">
-      <div class="stat-label">완료</div>
-      <div class="stat-value" id="statDone">0</div>
-      <div class="stat-sub">제출 완료</div>
+  <!-- ✏️ 시간표 탭 콘텐츠: 여기에 시간표 코드를 작성하세요 -->
+
+  <div id="timetableSection">
+    <div>
+      <table class="dashboard-timetable">
+        <tr>
+          <th colspan="6" class="timetable-title">시간표</th>
+        </tr>
+        <tr class="header-cell">
+          <th>교시</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
+        </tr>
+        
+        <tr>
+          <th class="header-cell">1</th>
+          <td><span class="subject-tag tag-d">D</span></td><td>공학</td>
+          <td><span class="subject-tag tag-a">A</span></td><td><span class="subject-tag tag-a">A</span></td>
+          <td><span class="subject-tag tag-d">D</span></td>
+        </tr>
+        
+        <tr>
+          <th class="header-cell">2</th>
+          <td>진로</td><td><span class="subject-tag tag-b">B</span></td><td>공학</td><td>확통</td><td>공학</td>
+        </tr>
+      
+        <tr>
+          <th class="header-cell">3</th>
+          <td>사탐</td><td>확통</td><td>영독</td><td>화작</td><td><span class="subject-tag tag-a">A</span></td>
+        </tr>
+      
+        <tr>
+          <th class="header-cell">4</th>
+          <td><span class="subject-tag tag-c">C</span></td><td><span class="subject-tag tag-d">D</span></td>
+          <td>화작</td><td>스생</td><td><span class="subject-tag tag-b">B</span></td>
+        </tr>
+      
+        <tr class="lunch-row">
+          <td colspan="6">점심 시간 (12:50 ~ 1:50)</td>
+        </tr>
+      
+        <tr>
+          <th class="header-cell">5</th>
+          <td>영독</td><td>화작</td><td><span class="subject-tag tag-c">C</span></td>
+          <td><span class="subject-tag tag-c">C</span></td><td class="empty-cell">-</td>
+        </tr>
+      
+        <tr>
+          <th class="header-cell">6</th>
+          <td>스생</td><td>화작</td><td>확통</td><td><span class="subject-tag tag-b">B</span></td>
+          <td class="empty-cell">-</td>
+        </tr>
+      
+        <tr>
+          <th class="header-cell">7</th>
+          <td>학특</td><td class="empty-cell">-</td><td>사탐</td><td>영독</td>
+          <td class="empty-cell">-</td>
+        </tr>
+      </table>
     </div>
   </div>
 
-  <div class="section-title" id="sectionTitle">수행평가 목록</div>
-  <div class="cards-grid" id="cardsGrid"></div>
-  <div class="empty-state" id="emptyState" style="display:none">
-    <div class="empty-icon">📭</div>
-    <div id="emptyMsg">검색 결과가 없습니다.</div>
-  </div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
@@ -264,7 +405,7 @@
       startDate: "2026-03-23",
       deadline: "2026-03-26",
       score: "20점",
-      submitType: "1차시(3/23), 2차시(3/25), 3차시(3/2)",
+      submitType: "1차시(3/23), 2차시(3/25), 3차시(3/26)",
       desc: "",
       image: [
         "https://raw.githubusercontent.com/johnggm/Img/047b2f5c75ba50a22ae13561c0a945e986ef078d/IMG_5747.jpeg",
@@ -312,10 +453,9 @@
       score: "20점",
       submitType: "예정",
       desc: "",
-      image: [
-      ]
+      image: []
     },{
-      id: 4,
+      id: 5,
       category: "사회탐구",
       subject: "한국 지리",
       title: "공간데이터 분석을 통한 통계지도 제작하기",
@@ -332,13 +472,11 @@
     }
   ];
 
-  /* ── 날짜 M/D 포맷 ── */
   function fmtDate(dateStr) {
     const d = new Date(dateStr);
     return (d.getMonth() + 1) + "/" + d.getDate();
   }
 
-  /* ── 카드용 날짜 범위 ── */
   function dateRange(ev) {
     if (ev.startDate && ev.startDate !== ev.deadline) {
       return fmtDate(ev.startDate) + " ~ " + fmtDate(ev.deadline);
@@ -346,30 +484,29 @@
     return "마감 " + fmtDate(ev.deadline);
   }
 
+  /* ── 상태 자동 계산 (시작일 기준) ── */
   function getStatus(ev) {
     const today = new Date(); today.setHours(0,0,0,0);
     const deadline = new Date(ev.deadline); deadline.setHours(0,0,0,0);
     const start = ev.startDate ? new Date(ev.startDate) : null;
     if (start) start.setHours(0,0,0,0);
-    const diff = Math.ceil((deadline - today) / 86400000);
-    if (diff < 0) return "완료";
-    if (diff <= 3) return "긴급";
-    if (start && today >= start) return "진행중";
+
+    if (deadline < today) return "완료";
+
+    if (start) {
+      const diffStart = Math.ceil((start - today) / 86400000);
+      if (diffStart <= 3 && diffStart >= 0) return "긴급";  // 시작일 3일 이내
+      if (today >= start) return "진행중";                   // 시작일 지남
+    } else {
+      const diffDeadline = Math.ceil((deadline - today) / 86400000);
+      if (diffDeadline <= 3) return "긴급";
+    }
     return "예정";
   }
 
   const subjectClass = {
     "국어":"subj-korean","수학":"subj-math","영어":"subj-english",
     "과학탐구":"subj-science","사회탐구":"subj-social","생활&예체능":"subj-life",
-  };
-
-  const subjectMap = {
-    "수학":["확률과 통계","미적분","경제 수학","심화 수학 I"],
-    "국어":["언어와 매체","화법과 작문","심화 국어"],
-    "영어":["영어 독해와 작문","심화 영어 독해 I"],
-    "사회탐구":["동아시아사","한국 지리","정치와 법","경제","생활과 윤리","고전과 윤리","사회문제 탐구"],
-    "과학탐구":["물리학 II","화학 II","생명과학 II","지구과학 II"],
-    "생활&예체능":["스포츠 생활","음악 연주","미술 감상과 비평","환경","한문","공학 일반","일본문화","중국문화","정보과학"],
   };
 
   const statusMap = {
@@ -414,8 +551,17 @@
     currentTab = tab;
     document.getElementById('tabActive').classList.toggle('active', tab==='active');
     document.getElementById('tabDone').classList.toggle('active', tab==='done');
-    document.getElementById('statusFilter').style.display = tab==='done' ? 'none' : '';
-    refresh();
+    document.getElementById('tabkge').classList.toggle('active', tab==='kge');
+
+    // 시간표 탭 ↔ 수행평가 탭 전환
+    const isKge = tab === 'kge';
+    document.getElementById('evalSection').style.display      = isKge ? 'none' : '';
+    document.getElementById('timetableSection').style.display = isKge ? 'block' : 'none';
+
+    if (!isKge) {
+      document.getElementById('statusFilter').style.display = tab==='done' ? 'none' : '';
+      refresh();
+    }
   }
 
   function updateStats() {
@@ -435,7 +581,7 @@
     return evaluations.filter(ev => {
       const s = getStatus(ev);
       const inTab  = currentTab==='done' ? s==="완료" : s!=="완료";
-      const matchQ = !q || ev.title.toLowerCase().includes(q) || (ev.teacher||"").toLowerCase().includes(q) || (ev.desc||"").toLowerCase().includes(q) || (ev.subject||"").toLowerCase().includes(q);
+      const matchQ = !q || ev.title.toLowerCase().includes(q) || (ev.desc||"").toLowerCase().includes(q) || (ev.subject||"").toLowerCase().includes(q);
       const matchS = !subject || ev.category===subject;
       const matchT = !status  || s===status;
       return inTab && matchQ && matchS && matchT;
